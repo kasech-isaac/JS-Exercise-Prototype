@@ -39,9 +39,35 @@ Airplane.prototype.land = function () {
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
-function Person() {
-
-}
+function Person(name, age) {
+  this.name =name;
+  this.age=age;
+  this.stomach=[];
+  }
+  
+  Person.prototype.eat= function(someFood){
+    if(this.stomach.length < 10){
+      this.stomach.push(someFood);
+    }
+  }
+  Person.prototype.poop= function(){
+    this.stomach = [];
+  }
+  Person.prototype.toString = function(){
+    return `${this.name}, ${this.age}`
+  }
+  
+  const personOne = new Person({
+    name: "Mary",
+    age: 50,
+  });
+  console.log(personOne.toString());
+  personOne.eat('rice');
+  personOne.eat('pizza');
+  personOne.eat('pasta');
+  console.log(personOne.stomach);
+  personOne.poop();
+  console.log(personOne.stomach);
 
 /*
   TASK 2
@@ -57,9 +83,26 @@ function Person() {
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-function Car() {
-
+function Car(model,milesPerGallon,tank,odometer) {
+  this.model = model;
+  this.milesPerGallon = milesPerGallon;
+  this.tank=[];
+    this.odometer= odometer;
 }
+Car.prototype.fill= function(gallons){
+  return (gallons + this.tank)
+  };
+
+let newCar= new Car({
+  model:'Toyota',
+  milesPerGallon: 50,
+  
+
+})
+console.log(newCar.fill(30));
+ 
+
+ 
 
 /*
   TASK 3
@@ -68,18 +111,27 @@ function Car() {
     - Besides the methods on Person.prototype, babies have the ability to `.play()`:
         + Should return a string "Playing with x", x being the favorite toy.
 */
-function Baby() {
-
+function Baby(favoriteToy) {
+Person.call(this.name,this.age)
+this.favoriteToy=favoriteToy;
 }
+Baby.prototype= Person.call(Baby);
 
+let baby1= new Baby({
+  favoriteToy: 'car',
+})
+Baby.prototype.play= function(){
+  return `play with ${this.favoriteToy}`
+}
+console.log(baby1.play);
 /* 
   TASK 4
 
   In your own words explain the four principles for the "this" keyword below:
-  1. 
-  2. 
-  3. 
-  4. 
+  1. Window binding:- it's the defalt if none of others rule applay 'this' defaults to the window.
+  2. Implicit binding:- only applies to object with methodos. When we invoked we look the left side of the dot thates where 'this' refer too.
+  3. Explicit Binding:- Help us to tell what this keyword should refers to. Three way to tell this is .call, .apply, .bind
+  4. New bindin:- when function is invoked as a constructor function using the 'new ' keyword 'this' points to the new object thats created.
 */
 
 
